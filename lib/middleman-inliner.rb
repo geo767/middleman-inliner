@@ -9,6 +9,7 @@ class Inliner < Middleman::Extension
     def inline_css(*names)
       names.map { |name|
         name += ".css" unless name =~ /\.s{0,1}css|sass$/i
+        puts sitemap.resources.inspect
         css_path = sitemap.resources.select { |p| p.source_file.include?(name) }.first
         "<style type='text/css'>#{css_path.render}</style>"
       }.reduce(:+)
@@ -17,7 +18,7 @@ class Inliner < Middleman::Extension
     def inline_js(*names)
       names.map { |name|
         name += ".js" unless name.include?(".js")
-        js = sitemap.resources.select { |p| p.source_file.include?(name) }.first
+        js = sprockets.find_asset(name).to_s
         "<script type='text/javascript'>#{defined?(Uglifier) ? Uglifier.compile(js) : js}</script>"
       }.reduce(:+)
     end
