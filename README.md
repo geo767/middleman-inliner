@@ -12,6 +12,8 @@ Provides helper to Inline JS/CSS in Middleman for performance.
 
 // Then all JS/CSS will be compressed and inlined.
 ```
+(Optional) if you want to inline an .scss file or a .sass file, include the file extension:
+<%= stylesheet_inline_tag "header.scss" %>
 
 Install
 =======
